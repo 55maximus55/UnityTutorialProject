@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
 
-    [SerializeField] private float speed;
-    [SerializeField] private float acceleration;
-    private bool _isStopping = false;
+    public float speed;
+    public float acceleration;
+    private bool _isStopping;
 
     private void Awake()
     {
@@ -50,4 +50,5 @@ public class PlayerController : MonoBehaviour
 
         _body.AddForceX(mass * acc);
     }
+    
 }
