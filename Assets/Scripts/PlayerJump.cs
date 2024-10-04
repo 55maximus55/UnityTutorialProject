@@ -8,12 +8,12 @@ public class PlayerJump : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D _body;
 
+    public LayerMask groundLayer;
     public Vector2 boxSize;
     public float castDistance;
     
     public float jumpForce;
     public bool grounded;
-    public LayerMask groundLayer;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class PlayerJump : MonoBehaviour
     
     private void Update()
     {
-        if (InputSystem.actions["Jump"].WasPressedThisFrame() && grounded)
+        if (InputSystem.actions["Jump"].IsPressed() && grounded)
         {
             _animator.SetBool(Jump, true);
             _body.linearVelocityY = jumpForce;
@@ -33,14 +33,14 @@ public class PlayerJump : MonoBehaviour
         {
             if (_body.linearVelocityY > 0)
             {
-                _body.linearVelocityY = jumpForce / 3;
+                _body.linearVelocityY = jumpForce / 2;
             }
         }
     }
     
     private void FixedUpdate()
     {
-        bool onGround = IsGrounded();
+        var onGround = IsGrounded();
         if (onGround && !grounded)
         {
             _animator.SetBool(Jump, false);
